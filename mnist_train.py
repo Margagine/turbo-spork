@@ -6,11 +6,11 @@ import mnist_inference
 BATCH_SIZE=100
 LEARNING_RATE_BASE=0.8
 LEARNING_RATE_DECAY=0.99
-REGULARAZTION_RATE=O.0001
+REGULARAZTION_RATE=0.0001
 TRAINING_STEPS=30000
 MOVING_AVERAGE_DECAY=0.99
 
-MODEL_SAVE_PATH='D:\git\turbo-spork\mnisttest'
+MODEL_SAVE_PATH='/study/turbo-spork'
 MODEL_NAME='mnist_test_model.ckpt'
 def train(mnist):
 	x=tf.placeholder(tf.float32,[None,mnist_inference.INPUT_NODE],name='x-input')
@@ -27,7 +27,7 @@ def train(mnist):
 	
 	learning_rate=tf.train.exponential_decay(LEARNING_RATE_BASE,
 	global_step,mnist.train.num_example/BATCH_SIZE,LEARNING_RATE_DECAY)
-	train_step=tf.train.GradientDescentOptimizer(learning_rate)\.minimize(loss,global_step=global_step)
+	train_step=tf.train.GradientDescentOptimizer(learning_rate).minimize(loss,global_step=global_step)
 	with tf.control_dependencies([train_step,variables_averages_op]):
 		train_op=tf.no_op(name='train')
 	
@@ -42,7 +42,7 @@ def train(mnist):
 				print(loss_value)
 				saver.save(sess,os.path.join(MODEL_SAVE_PATH,MODEL_NAME),global_step=global_step)
 def main(argv=None):
-	mnist=input_data.read_data_sets('D:\git\turbo-spork\mnisttest',one_hot=True)
+	mnist=input_data.read_data_sets('/study/turbo-spork',one_hot=True)
 	train(mnist)
 if __name__='__main__':
 	tf.app.run()
